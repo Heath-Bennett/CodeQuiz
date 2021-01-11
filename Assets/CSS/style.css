@@ -1,0 +1,44 @@
+a, h2, p {
+    display: inline;
+    font-size: 25px; 
+}
+
+#timer {
+    position: absolute;
+    right: 5px;
+    margin-right:20px;
+    top: 20px;
+}
+
+header{
+    border-bottom: 2px solid black;
+    height:50px;
+}
+
+a {
+    position: relative;
+    margin:20px;
+    text-decoration: none;
+    top: 10px
+}
+
+p{
+    padding-left: 2px;
+}
+
+main {
+    text-align: center;
+    align-content: center;
+    border: 2px solid black;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:50px;
+}
+
+button {
+    padding:10px;
+    margin:20px;
+    font-size: 20px;
+    border-radius: 10px;
+}
