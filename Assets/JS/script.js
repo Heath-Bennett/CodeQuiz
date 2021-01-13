@@ -1,6 +1,11 @@
+//Declare variables
+
+let timerCount = 75;
+let timeLeft = $("#timeLeft");
+
 //create an array of question objects
 
-var quizQuestions = [
+let quizQuestions = [
     {
         question: "What is the proper syntax to create an empty array?", 
         optionOne: "var anArray = {};", 
@@ -93,9 +98,29 @@ var quizQuestions = [
 
 ];
 
+//An array to store already used questions
+
 let questionsUsed = [];
 
+//JQuery Document.ready function
+$(document).ready(function() {
 
+    // startTime function runs the timer
+    function startTime() {
+        timer = setInterval(function() {
+            timerCount--;
+            timeLeft.text(timerCount);
+            if (timerCount === 0){
+                clearInterval(timer);
+            }
+        }, 1000)
+    }
+
+    //Event listeners
+    $("#start").on("click", startTime);
+
+
+});
 
 
 //**********************Testing purposes*************************

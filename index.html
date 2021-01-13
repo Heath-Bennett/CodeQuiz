@@ -3,23 +3,47 @@
     <head>
         <meta charset="UTF-8">
         <title>Code Quiz</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
         <link rel="stylesheet" type="text/css" href="./Assets/CSS/style.css">
     </head>
 
     <body>
         <header>
-            <a href=""> View Highscores</a>
+            <a href=""> View High Scores</a>
             <div id="timer">
                 <h2>Time:</h2>
-                <p>75</p>
+                <p id="timeLeft">75</p>
             </div>
         </header>
         
         <main>
             <h1>Coding Quiz Challenge</h1>
+            
             <p>You will be prompted with a series of multiple choice questions. Try and answer them before time runs out.  Each incorrect answer will deduct fifteen seconds from the clock. If you are able to answer all the questions before time runs out you win!</p><br>
-            <button type="button">Start Quiz</button>
 
+            <button  id="start" type="button">Start Quiz</button>
+
+            <form class="answer-btns">
+                <button class="quizBtn" value="1"></button>
+                <button class="quizBtn" value="2"></button>
+                <button class="quizBtn" value="3"></button>
+                <button class="quizBtn" value="4"></button>    
+            </form>
+
+            <form class="enter-initial">
+                <label for="initials">Enter Initials:</label>
+                <input type="text" id="initials" name="initials">
+                <button class="initial-button">Submit</button>
+
+            </form>
+
+            <ul class="highScores">
+                <li class="odd">First Place</li>
+                <li class="even">Second Place</li>
+                <li class="odd">Third Place</li>
+                <li class="even">Fourth Place</li>
+                <li class="odd">Fifth Place</li>
+            </ul>
         </main>
         
     </body>

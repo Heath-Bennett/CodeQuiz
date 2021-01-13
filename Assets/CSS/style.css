@@ -1,6 +1,7 @@
 a, h2, p {
     display: inline;
     font-size: 25px; 
+    color:darkslategray;
 }
 
 #timer {
@@ -11,15 +12,31 @@ a, h2, p {
 }
 
 header{
-    border-bottom: 2px solid black;
-    height:50px;
+    border-bottom: 2px solid lightslategray;
+    height:75px;
+    background-color: lightblue;
+    
+    
+}
+body {
+    margin: 0px;
 }
 
 a {
     position: relative;
     margin:20px;
     text-decoration: none;
-    top: 10px
+    top: 21px;
+    padding:4px;
+    
+    
+}
+
+a:hover{
+    background-color: lightslategray;
+    color:lightblue;
+    border-radius: 10px;
+    
 }
 
 p{
@@ -29,16 +46,79 @@ p{
 main {
     text-align: center;
     align-content: center;
-    border: 2px solid black;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
     margin-top:50px;
 }
 
-button {
-    padding:10px;
-    margin:20px;
+h1 {
+    color: lightslategray;
+}
+
+#start, button.quizBtn {
+    padding: 8px;
+    margin: 20px;
     font-size: 20px;
     border-radius: 10px;
+}
+
+label, button.initial-button {
+    font-size: 22px;
+    margin:7px;
+    
+}
+
+input {
+    line-height: 26px;
+    position:relative;
+    top:-4px;
+
+}
+
+button.initial-button {
+    position: relative;
+    top:-1px;
+    border-radius: 10px;
+
+}
+
+#start, button.initial-button {
+    background-color: lightslategray;
+    color:lightblue;
+}
+
+button.quizBtn {
+    background-color: lightblue;
+    
+}
+
+form.answer-btns > button{
+    display:block;
+}
+
+.display{
+    display: None;
+}
+
+li {
+    list-style: none;
+    font-size:22px;
+    padding:2px;
+}
+
+ul{
+    border:black 2px solid;
+    padding-left: 0;
+    box-shadow: 5px 7px darkgray;
+}
+
+li.odd {
+    background-color: lightblue;
+    
+}
+
+li.even{
+    background-color:lightslategray;
+    
 }
