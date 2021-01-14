@@ -36,6 +36,7 @@ a:hover{
     background-color: lightslategray;
     color:lightblue;
     border-radius: 10px;
+    box-shadow: 2px 2px black;
     
 }
 
@@ -45,18 +46,21 @@ p{
 
 main {
     text-align: center;
-    align-content: center;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top:50px;
+    align-content: center; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
 
 h1 {
     color: lightslategray;
+    font-size: 50px;
 }
 
-#start, button.quizBtn {
+#start, button.quizBtn, #goBack, #clearScores {
     padding: 8px;
     margin: 20px;
     font-size: 20px;
@@ -83,7 +87,7 @@ button.initial-button {
 
 }
 
-#start, button.initial-button {
+#start, button.initial-button, #goBack, #clearScores {
     background-color: lightslategray;
     color:lightblue;
 }
@@ -91,10 +95,6 @@ button.initial-button {
 button.quizBtn {
     background-color: lightblue;
     
-}
-
-form.answer-btns > button{
-    display:block;
 }
 
 .display{

@@ -19,31 +19,35 @@
         <main>
             <h1>Coding Quiz Challenge</h1>
             
-            <p>You will be prompted with a series of multiple choice questions. Try and answer them before time runs out.  Each incorrect answer will deduct fifteen seconds from the clock. If you are able to answer all the questions before time runs out you win!</p><br>
+            <p>You will be prompted with a series of multiple choice questions. Try and answer them before time runs out.  Each incorrect answer will deduct fifteen seconds from the clock. Each correct answer will add on two seconds. If you are able to answer all the questions before time runs out you win!</p><br>
 
             <button  id="start" type="button">Start Quiz</button>
 
-            <form class="answer-btns">
-                <button class="quizBtn" value="1"></button>
-                <button class="quizBtn" value="2"></button>
-                <button class="quizBtn" value="3"></button>
-                <button class="quizBtn" value="4"></button>    
+            <form class="answer-btns display">
+                <button id="qOne" class="quizBtn" value="1"></button>
+                <button id="qTwo" class="quizBtn" value="2"></button>
+                <button id="qThree" class="quizBtn" value="3"></button>
+                <button id="qFour"class="quizBtn" value="4"></button>    
             </form>
 
-            <form class="enter-initial">
+            <form class="enter-initial display">
                 <label for="initials">Enter Initials:</label>
                 <input type="text" id="initials" name="initials">
                 <button class="initial-button">Submit</button>
 
             </form>
 
-            <ul class="highScores">
+            <ul class="highScores display">
                 <li class="odd">First Place</li>
                 <li class="even">Second Place</li>
                 <li class="odd">Third Place</li>
                 <li class="even">Fourth Place</li>
                 <li class="odd">Fifth Place</li>
             </ul>
+            <form class="highScores display">
+                <button id="goBack">Back to Quiz</button>
+                <button id="clearScores">Clear High Scores</button>
+            </form>
         </main>
         
     </body>
