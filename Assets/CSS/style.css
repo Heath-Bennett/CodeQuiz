@@ -3,6 +3,10 @@ a, h2, p {
     font-size: 25px; 
     color:darkslategray;
 }
+h3 {
+    font-size: 24px;
+    margin-top: 10px;
+}
 
 #timer {
     position: absolute;

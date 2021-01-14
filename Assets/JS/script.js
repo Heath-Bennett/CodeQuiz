@@ -10,6 +10,7 @@ const optTwo = $("#qTwo");
 const optThree = $("#qThree");
 const optFour = $("#qFour");
 const mainP = $("main > p");
+const result = $("h3");
 
 
 //create an array of question objects
@@ -111,6 +112,15 @@ const quizQuestions = [
 
 let questionsUsed = [];
 
+// creates link for correct answer and wrong answer sound affects. 
+let correctAns = document.createElement("audio");
+correctAns.setAttribute("src", "./Assets/Sounds/ding2.mp3" );
+
+let wrongAns = document.createElement("audio");
+wrongAns.setAttribute("src", "./Assets/Sounds/buzz2.mp3");
+
+
+
 //JQuery Document.ready function
 $(document).ready(function() {
 
@@ -160,13 +170,22 @@ $(document).ready(function() {
 
     //This event handler with anonymous function handles user answers
     $("button.quizBtn").on("click", function(){
+        $("form.answer-btns").css("border-bottom", "2px dashed lightgray");
+        result.removeClass("display");
         
-        if (this.value === answerKey){
-            timerCount += 2;
-            
-            $("form.answer-btns").css("border-bottom", "2px dashed lightgray");
-        }
 
+        if (this.value === answerKey){
+            correctAns.play();
+            timerCount += 2;
+            result.css("color", "green");   
+            result.text("Correct!");
+        }
+        else {
+            wrongAns.play();
+            timerCount -= 15;
+            result.css("color", "red");
+            result.text("Incorrect");  
+        }
         
         getQuestion();
 
