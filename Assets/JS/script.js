@@ -11,7 +11,9 @@ const optThree = $("#qThree");
 const optFour = $("#qFour");
 const mainP = $("main > p");
 const result = $("h3");
-
+const startBtn = $("#start");
+const ansBtn = $("#form.answer-btns");
+const highScores = $("form.highScores");
 
 //create an array of question objects
 
@@ -163,8 +165,8 @@ $(document).ready(function() {
     function startQuiz (){
         getQuestion();
         mainP.addClass("display");
-        $("#start").addClass("display");
-        $("form.answer-btns").removeClass("display");
+        startBtn.addClass("display");
+        ansBtn.removeClass("display");
         
     }
 
@@ -192,10 +194,33 @@ $(document).ready(function() {
         return false;
     });
 
+    //reset function 
+    const resetFunc = function (){
+        qText.text("Coding Quiz Challenge");
+        timerCount = 75;
+        mainP.removeClass("display");
+        startBtn.removeClass("display");
+        ansBtn.addClass("display");
+        result.addClass("display");
+        highScores.addClass("display");
+
+        questionsUsed.forEach(function(element){
+            quizQuestions.push(element);
+        });
+
+        questionsUsed.length = 0; 
+
+        //*****************test purposes *********************/\
+        console.log("quizQuestions: " + quizQuestions.length);
+        console.log("questionsUsed: " + questionsUsed.length);
+        //**************************** *************************/
+    
+    };
+    
 
     //Event listeners
-    $("#start").on("click", startTime);
-    $("#start").on("click", startQuiz);
+    startBtn.on("click", startTime);
+    startBtn.on("click", startQuiz);
 
 });
 
