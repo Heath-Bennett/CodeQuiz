@@ -4,6 +4,10 @@
 
 This website is a quiz on the basics of JavaScript.  If the user is able to answer all questions before time runs out they win the game.  If the users time is one of the five best, they are prompted for their initials and it is added to high scores. 
 
+[Link to GitHub page](https://github.com/Heath-Bennett/CodeQuiz.git)
+
+[Link to deployed page](https://heath-bennett.github.io/CodeQuiz/)
+
 ## Table of Contents
 
 * [Image of Index.html](#Image-of-Index.html)
