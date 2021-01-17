@@ -6,6 +6,7 @@ let didWin = false;
 let numCorrect = 0;
 let answeredQuestions = 0; 
 let initial = "";
+let isHighScore = false;
 const timeLeft = $("#timeLeft");
 const qText = $("h1");
 const optOne = $("#qOne");
@@ -153,10 +154,22 @@ correctAns.setAttribute("src", "./Assets/Sounds/ding2.mp3" );
 let wrongAns = document.createElement("audio");
 wrongAns.setAttribute("src", "./Assets/Sounds/buzz2.mp3");
 
-
+let storedScores = JSON.parse(localStorage.getItem("Top_Scores"));
+console.log(storedScores);
 
 //JQuery Document.ready function
 $(document).ready(function() {
+
+   
+
+    if (storedScores !== null){
+        storedScores.forEach(function(e){
+            let storedIndex = 0;
+            topScores[storedIndex] = e;
+            console.log("Top Scores: " + topScores[storedIndex].initial + topScores[storedIndex].time);
+            storedIndex++
+        });
+    }
 
     // startTime function runs the timer 
     function startTime() {
@@ -210,10 +223,6 @@ $(document).ready(function() {
             setHighScore(validInitials(initial), timerCount);
             highScores.removeClass("display");
             userInitials.addClass("display");
-            //********************************************testing purposes************* */
-            console.log(initial);
-            // $("#first").text(topScores[0].initial + ": " + topScores[0].time + " seconds");
-            //******* *************************************************************** */
 
             
             switch(topScores.length){
@@ -273,37 +282,127 @@ $(document).ready(function() {
         return initials;
     }
 
-    
+    //This function handles topScores size
+
+    let topScoreLength = function (time, array){
+        switch(topScore.length){
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+                getInitials();
+                break;
+            case 5:
+                if (time > array[4].time){
+                    getInitials();
+                }
+                else{
+                    mainP.html("You answered " + numCorrect + " questions correctly! <br> I'm sorry your time was not high enough to make the high score board.");
+                }
+                break;
+            default:
+                mainP.html("You answered " + numCorrect + " questions correctly! <br> I'm sorry your time was not high enough to make the high score board.");
+        }
+
+        // switch(topScores.length){
+        //     case 5:
+        //         if (time > arrays[4].time){
+        //             isHighScore = true;
+        //             return isHighScore;
+        //         }
+        //         break;
+        //     case 4:
+        //         if (time > array[3].time){
+        //             isHighScore = true;
+        //             return isHighScore;
+        //         }
+                
+        //         break;
+        //     case 3:
+        //         if (time > array[2].time){
+        //             isHighScore = true;
+        //             return isHighScore;
+        //         }
+                
+        //         break;
+        //     case 2:
+        //         if (time > array[1].time){
+        //             isHighScore = true;
+        //             console.log("reached here too")
+        //             return isHighScore;
+        //         }
+                
+        //         break;
+        //     case 1:
+        //         if (time > array[0].time){
+        //             isHighScore = true;
+        //             console.log("reached here");
+        //             return isHighScore;
+        //         }
+        //         break;
+        // }    
+    }
 
     //This function is called when user wins the game
 
     let youWon = function (){
-        let isHighScore = false;
+        
         qText.text("You Won!");
         ansBtn.addClass("display");
         result.addClass("display");
         mainP.removeClass("display");
         mainP.html("You answered " + numCorrect + " questions correctly!");
-
+        
         if (topScores.length > 0){
-            topScores.forEach(function(element){
-                if (timeCount > element.time){
-                    isHighScore = true;
-                }
-                return isHighScore;
-            });
+            console.log("how about this");
+            // switch(topScores.length){
+            //     case 5:
+            //         if (timerCount > topScores[4].time){
+            //             isHighScore = true;
+            //             return isHighScore;
+            //         }
+            //         break;
+            //     case 4:
+            //         if (timerCount > topScores[3].time){
+            //             isHighScore = true;
+            //             return isHighScore;
+            //         }
+            //         break;
+            //     case 3:
+            //         if (timerCount > topScores[2].time){
+            //             isHighScore = true;
+            //             return isHighScore;
+            //         }
+            //         break;
+            //     case 2:
+            //         if (timerCount > topScores[1].time){
+            //             isHighScore = true;
+            //             return isHighScore;
+            //         }
+            //         break;
+            //     case 1:
+            //         if (timerCount > topScores[0].time){
+            //             isHighScore = true;
+            //             console.log("reached here");
+            //             return isHighScore;
+            //         }
+            //         break;
+            // }
+            topScoreLength(timerCount, topScores);
+        
 
-            if (isHighScore){
-                getInitials();
-            }
-            else{
-                mainP.html("You answered " + numCorrect + " questions correctly! <br> I'm sorry your time was not high enough to make the high score board.");
-            }
-        }
-        else{
-            getInitials();
+        //     if (isHighScore){
+        //         getInitials();
+        //     }
+        //     else{
+        //         mainP.html("You answered " + numCorrect + " questions correctly! <br> I'm sorry your time was not high enough to make the high score board.");
+        //     }
+        // }
+        // else{
+        //     getInitials();
             
-        }   
+        // }   
     }
 
     //This function loops through highScores and places new object in the correct spot
@@ -347,7 +446,8 @@ $(document).ready(function() {
                 loopThroughScores(newObject);
                 break;
         }
-    
+        
+        localStorage.setItem("Top_Scores", JSON.stringify(topScores));
     }
 
     //This function starts the quiz and gets the first question;
@@ -387,28 +487,31 @@ $(document).ready(function() {
         
     });
 
-    //reset function 
+    //resets quiz and stores topScores in local storage
     const resetFunc = function (){
-        qText.text("Coding Quiz Challenge");
-        timerCount = 60;
-        answerKey = "";
-        arrayLength = 12;
-        didWin = false;
-        numCorrect = 0;
-        answeredQuestions = 0;
-        initial = "";
-        mainP.removeClass("display");
-        startBtn.removeClass("display");
-        ansBtn.addClass("display");
-        result.addClass("display");
-        highScores.addClass("display");
-        timeLeft.text(60)
+        // qText.text("Coding Quiz Challenge");
+        // timerCount = 60;
+        // answerKey = "";
+        // arrayLength = 12;
+        // didWin = false;
+        // numCorrect = 0;
+        // answeredQuestions = 0;
+        // initial = "";
+        // mainP.removeClass("display");
+        // startBtn.removeClass("display");
+        // ansBtn.addClass("display");
+        // result.addClass("display");
+        // highScores.addClass("display");
+        // timeLeft.text(60);
+        location.reload();
 
         questionsUsed.forEach(function(element){
             quizQuestions.push(element);
         });
 
-        questionsUsed.length = 0; 
+        questionsUsed.length = 0;
+        
+        
     
     };
     
