@@ -6,7 +6,7 @@ let didWin = false;
 let numCorrect = 0;
 let answeredQuestions = 0; 
 let initial = "";
-let isHighScore = false;
+// let isHighScore = false;
 const timeLeft = $("#timeLeft");
 const qText = $("h1");
 const optOne = $("#qOne");
@@ -154,22 +154,25 @@ correctAns.setAttribute("src", "./Assets/Sounds/ding2.mp3" );
 let wrongAns = document.createElement("audio");
 wrongAns.setAttribute("src", "./Assets/Sounds/buzz2.mp3");
 
-let storedScores = JSON.parse(localStorage.getItem("Top_Scores"));
-console.log(storedScores);
-
 //JQuery Document.ready function
 $(document).ready(function() {
 
-   
-
-    if (storedScores !== null){
-        storedScores.forEach(function(e){
-            let storedIndex = 0;
-            topScores[storedIndex] = e;
-            console.log("Top Scores: " + topScores[storedIndex].initial + topScores[storedIndex].time);
-            storedIndex++
-        });
+    //Retrieves High Scores
+    let init = function (){
+        let storedScores = JSON.parse(localStorage.getItem("Top_Scores"));
+        if (storedScores !== null){
+            storedScores.forEach(function(e){
+                let storedIndex = 0;
+                topScores[storedIndex] = e;
+                console.log("Top Scores: " + topScores[storedIndex].initial + topScores[storedIndex].time);
+                storedIndex++
+            });
+        }
     }
+
+    init();
+
+    //Initializes high Scores
 
     // startTime function runs the timer 
     function startTime() {
@@ -187,7 +190,7 @@ $(document).ready(function() {
                 clearInterval(timer);
                 
             }
-        }, 1000)
+        }, 1000);
     }
     
     //This generates a question object from quizQuestions array and populates the page with it.
@@ -208,9 +211,41 @@ $(document).ready(function() {
     //This function checks to see if criteria for win has been met
 
     let checkWin = function (){
-        if (numCorrect >= 5 && answeredQuestions === 10){
+        if (answeredQuestions === 10){
             didWin = true;
             return didWin;
+        }
+    }
+
+    //This function populates the high score board.
+    const populateHighScore = function(){
+        switch(topScores.length){
+            case 5:
+                firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
+                secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
+                thirdPlace.text(topScores[2].initial + ": " + topScores[2].time + " seconds");
+                fourthPlace.text(topScores[3].initial + ": " + topScores[3].time + " seconds");
+                fifthPlace.text(topScores[4].initial + ": " + topScores[4].time + " seconds");
+                break;
+            case 4:
+                firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
+                secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
+                thirdPlace.text(topScores[2].initial + ": " + topScores[2].time + " seconds");
+                fourthPlace.text(topScores[3].initial + ": " + topScores[3].time + " seconds");
+                break;
+            case 3:
+                firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
+                secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
+                thirdPlace.text(topScores[2].initial + ": " + topScores[2].time + " seconds");
+                break;
+            case 2:
+                firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
+                secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
+                break;
+            case 1:
+                firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
+                break;
+            
         }
     }
 
@@ -223,39 +258,11 @@ $(document).ready(function() {
             setHighScore(validInitials(initial), timerCount);
             highScores.removeClass("display");
             userInitials.addClass("display");
-
-            
-            switch(topScores.length){
-                case 5:
-                    firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
-                    secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
-                    thirdPlace.text(topScores[2].initial + ": " + topScores[2].time + " seconds");
-                    fourthPlace.text(topScores[3].initial + ": " + topScores[3].time + " seconds");
-                    fifthPlace.text(topScores[4].initial + ": " + topScores[4].time + " seconds");
-                    break;
-                case 4:
-                    firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
-                    secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
-                    thirdPlace.text(topScores[2].initial + ": " + topScores[2].time + " seconds");
-                    fourthPlace.text(topScores[3].initial + ": " + topScores[3].time + " seconds");
-                    break;
-                case 3:
-                    firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
-                    secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
-                    thirdPlace.text(topScores[2].initial + ": " + topScores[2].time + " seconds");
-                    break;
-                case 2:
-                    firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
-                    secondPlace.text(topScores[1].initial + ": " + topScores[1].time + " seconds");
-                    break;
-                case 1:
-                    firstPlace.text(topScores[0].initial + ": " + topScores[0].time + " seconds");
-                    break;
-                
-            }
+            populateHighScore();
         });
     }
 
+    //This function validates that user entered initials
     let validInitials = function (initials){
         let validInitials = false;
         initials = initials.toUpperCase();
@@ -282,10 +289,10 @@ $(document).ready(function() {
         return initials;
     }
 
-    //This function handles topScores size
+    //This function determines if score is High Score
 
     let topScoreLength = function (time, array){
-        switch(topScore.length){
+        switch(topScores.length){
             case 0:
             case 1:
             case 2:
@@ -305,44 +312,7 @@ $(document).ready(function() {
                 mainP.html("You answered " + numCorrect + " questions correctly! <br> I'm sorry your time was not high enough to make the high score board.");
         }
 
-        // switch(topScores.length){
-        //     case 5:
-        //         if (time > arrays[4].time){
-        //             isHighScore = true;
-        //             return isHighScore;
-        //         }
-        //         break;
-        //     case 4:
-        //         if (time > array[3].time){
-        //             isHighScore = true;
-        //             return isHighScore;
-        //         }
-                
-        //         break;
-        //     case 3:
-        //         if (time > array[2].time){
-        //             isHighScore = true;
-        //             return isHighScore;
-        //         }
-                
-        //         break;
-        //     case 2:
-        //         if (time > array[1].time){
-        //             isHighScore = true;
-        //             console.log("reached here too")
-        //             return isHighScore;
-        //         }
-                
-        //         break;
-        //     case 1:
-        //         if (time > array[0].time){
-        //             isHighScore = true;
-        //             console.log("reached here");
-        //             return isHighScore;
-        //         }
-        //         break;
-        // }    
-    }
+    }    
 
     //This function is called when user wins the game
 
@@ -354,100 +324,34 @@ $(document).ready(function() {
         mainP.removeClass("display");
         mainP.html("You answered " + numCorrect + " questions correctly!");
         
-        if (topScores.length > 0){
-            console.log("how about this");
-            // switch(topScores.length){
-            //     case 5:
-            //         if (timerCount > topScores[4].time){
-            //             isHighScore = true;
-            //             return isHighScore;
-            //         }
-            //         break;
-            //     case 4:
-            //         if (timerCount > topScores[3].time){
-            //             isHighScore = true;
-            //             return isHighScore;
-            //         }
-            //         break;
-            //     case 3:
-            //         if (timerCount > topScores[2].time){
-            //             isHighScore = true;
-            //             return isHighScore;
-            //         }
-            //         break;
-            //     case 2:
-            //         if (timerCount > topScores[1].time){
-            //             isHighScore = true;
-            //             return isHighScore;
-            //         }
-            //         break;
-            //     case 1:
-            //         if (timerCount > topScores[0].time){
-            //             isHighScore = true;
-            //             console.log("reached here");
-            //             return isHighScore;
-            //         }
-            //         break;
-            // }
-            topScoreLength(timerCount, topScores);
-        
-
-        //     if (isHighScore){
-        //         getInitials();
-        //     }
-        //     else{
-        //         mainP.html("You answered " + numCorrect + " questions correctly! <br> I'm sorry your time was not high enough to make the high score board.");
-        //     }
-        // }
-        // else{
-        //     getInitials();
-            
-        // }   
-    }
-
-    //This function loops through highScores and places new object in the correct spot
-    let loopThroughScores = function(newObj){
-        for (let i = 0; i < topScores.length; i++){
-            if (newObj.time > topScores[i].time){
-                topScores.splice(i, 0, newObj);
-            }
-            break;
+        if (topScores.length >= 0){
+            topScoreLength(timerCount, topScores);  
         }
-    }
-
+    } 
+    
     //This function creates an object
     let scoreBoardEntry= function(initial, time){
         this.initial = initial;
         this.time = time;
     }
 
-
+    //This function stores high scores
+    const storeHighScore = function(){
+        localStorage.setItem("Top_Scores", JSON.stringify(topScores));
+    }
+    
     //This function sets highScores
-
     let setHighScore = function (initial, time){
         let newObject = new scoreBoardEntry(initial, time);
-        switch(topScores.length){
-            case 0:
-                topScores.push(newObject);
-                break;
-            case 1:
-                if (newObject.time > topScores[0].time){
-                    topScores.splice(0, 0, newObject);
-                }
-                else{
-                    topScores.push(newObject);
-                }
+        topScores.push(newObject);
+        topScores.sort((a, b) => b.age - a.age); 
+        topScores.splice(5);
 
-                break;
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                loopThroughScores(newObject);
-                break;
-        }
-        
-        localStorage.setItem("Top_Scores", JSON.stringify(topScores));
+        topScores.forEach(function(e){
+            console.log("Initials: " + e.initial + " Time: " + e.time);
+        });
+        storeHighScore();
+        return topScores;
     }
 
     //This function starts the quiz and gets the first question;
@@ -456,37 +360,10 @@ $(document).ready(function() {
         mainP.addClass("display");
         startBtn.addClass("display");
         ansBtn.removeClass("display");
-        
-        
     }
 
     //This event handler with anonymous function handles user answers
-    $("button.quizBtn").on("click", function(){
-        ansBtn.css("border-bottom", "2px dashed lightgray");
-        result.removeClass("display");
-        
-
-        if (this.value === answerKey){
-            correctAns.play();
-            timerCount += 5;
-            numCorrect ++;
-            result.css("color", "green");   
-            result.text("Correct!");
-            answeredQuestions++;
-        }
-        else {
-            wrongAns.play();
-            timerCount -= 15;
-            result.css("color", "red");
-            result.text("Incorrect");
-            answeredQuestions++;  
-        }
-        
-        getQuestion();
-
-        
-    });
-
+    
     //resets quiz and stores topScores in local storage
     const resetFunc = function (){
         // qText.text("Coding Quiz Challenge");
@@ -504,31 +381,72 @@ $(document).ready(function() {
         // highScores.addClass("display");
         // timeLeft.text(60);
         location.reload();
-
+        
         questionsUsed.forEach(function(element){
             quizQuestions.push(element);
         });
 
         questionsUsed.length = 0;
-        
-        
-    
     };
     
-
     //Event listeners
+    $("a").on("click", function(){
+        highScores.removeClass("display");
+        qText.text("High Scores");
+        mainP.addClass("display");
+        ansBtn.addClass("display");
+        startBtn.addClass("display");
+        result.addClass("display");
+        populateHighScore();
+        return false;
+    });
+    
+    $("#clearScores").on("click", function(){
+        topScores.length = 0; 
+        localStorage.setItem("Top_Scores", JSON.stringify(topScores));
+        firstPlace.text("First Place");
+        secondPlace.text("Second Place");
+        thirdPlace.text("Third Place");
+        fourthPlace.text("Fourth Place");
+        fifthPlace.text("Fifth Place");
+    });
+
+    $("button.quizBtn").on("click", function(){
+        ansBtn.css("border-bottom", "2px dashed lightgray");
+        result.removeClass("display");
+        
+        
+        if (this.value === answerKey){
+            correctAns.play();
+            timerCount += 5;
+            numCorrect ++;
+            result.css("color", "green");   
+            result.text("Correct!");
+            answeredQuestions++;
+        }
+        else {
+            wrongAns.play();
+            timerCount -= 15;
+            result.css("color", "red");
+            result.text("Incorrect");
+            answeredQuestions++;  
+        }
+        
+        getQuestion();
+    });
+
     startBtn.on("click", startTime);
     startBtn.on("click", startQuiz);
     backButton.on("click", resetFunc);
-
 });
 
 
-        
-        
-            
 
-        
+
+
+
+
+
 
 
 
