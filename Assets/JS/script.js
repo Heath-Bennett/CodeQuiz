@@ -186,8 +186,13 @@ $(document).ready(function() {
                     youWon();
                 }
             }
-            if (timerCount <= 0){
+            else{
                 clearInterval(timer);
+                qText.text("I'm sorry you ran out of time.  Please try again!");
+                populateHighScore();
+                highScores.removeClass("display");
+                ansBtn.addClass("display");
+                result.addClass("display");
                 
             }
         }, 1000);
