@@ -371,20 +371,6 @@ $(document).ready(function() {
     
     //resets quiz and stores topScores in local storage
     const resetFunc = function (){
-        // qText.text("Coding Quiz Challenge");
-        // timerCount = 60;
-        // answerKey = "";
-        // arrayLength = 12;
-        // didWin = false;
-        // numCorrect = 0;
-        // answeredQuestions = 0;
-        // initial = "";
-        // mainP.removeClass("display");
-        // startBtn.removeClass("display");
-        // ansBtn.addClass("display");
-        // result.addClass("display");
-        // highScores.addClass("display");
-        // timeLeft.text(60);
         location.reload();
         
         questionsUsed.forEach(function(element){
