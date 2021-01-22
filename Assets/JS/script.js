@@ -349,8 +349,8 @@ $(document).ready(function() {
     let setHighScore = function (initial, time){
         let newObject = new scoreBoardEntry(initial, time);
         topScores.push(newObject);
-        topScores.sort((a, b) => b.age - a.age); 
-        topScores.splice(5);
+        topScores.sort((a, b) => b.time - a.time); 
+        // topScores.splice(5);
 
         topScores.forEach(function(e){
             console.log("Initials: " + e.initial + " Time: " + e.time);
