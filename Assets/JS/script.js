@@ -160,17 +160,7 @@ $(document).ready(function() {
     //Retrieves High Scores
     let init = function (){
         topScores = JSON.parse(localStorage.getItem("Top_Scores"));
-        // if (storedScores !== null){
-        //     storedScores.forEach(function(e){
-        //         console.log("init3", topScores);
-        //         let storedIndex = 0;
-        //         topScores[storedIndex] = e;
-        //         console.log("Top Scores: " + topScores[storedIndex].initial + topScores[storedIndex].time);
-        //         console.log("init2", topScores);
-        //         storedIndex++
-        //         console.log("init", topScores);
-        //     });
-        // }
+        
     }
 
     init();
@@ -300,7 +290,7 @@ $(document).ready(function() {
     //This function determines if score is High Score
 
     let topScoreLength = function (time, array){
-        console.log("topScoreLength", topScores);
+        
         switch(topScores.length){
             case 0:
             case 1:
@@ -342,8 +332,6 @@ $(document).ready(function() {
     let scoreBoardEntry= function(initial, time){
         this.initial = initial;
         this.time = time;
-        console.log("ScoreBoardEntery: ", topScores)
-        console.log('this: ', this);
     }
 
     //This function stores high scores
@@ -353,16 +341,11 @@ $(document).ready(function() {
     
     //This function sets highScores
     let setHighScore = function (initial, time){
-        console.log("setsHIghScore: ", topScores);
+        
         let newObject = new scoreBoardEntry(initial, time);
-        console.log("newObject: ", newObject);
         topScores.push(newObject);
         topScores.sort((a, b) => b.time - a.time); 
         topScores.splice(5);
-
-        topScores.forEach(function(e){
-            console.log("Initials: " + e.initial + " Time: " + e.time);
-        });
         storeHighScore();
         return topScores;
     }
